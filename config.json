@@ -1,0 +1,117 @@
+{
+    "plugin_type": "widget",
+    "name": "Video Sliding Card",
+    "edit_page_url": "www.optimizely.com",
+    "form_schema": [
+      {
+        "name": "heading",
+        "label": "Header",
+        "default_value": "Main Heading",
+        "field_type": "text",
+        "options": null
+      },
+      {
+        "name": "text",
+        "label": "Main Copy",
+        "default_value": "Main Body Copy",
+        "field_type": "multi_text",
+        "options": null
+      },
+      {
+        "name": "cta",
+        "label": "Primary CTA",
+        "default_value": "Main CTA",
+        "field_type": "text",
+        "options": null
+      },
+      {
+        "name": "url",
+        "label": "Call to Action link",
+        "default_value": "https://rticoutdoors.com/52-QT-Ultra-Light-Wheeled-Cooler?size=52&color=White-Grey",
+        "field_type": "text",
+        "options": null
+      },
+      {
+        "name": "bgcolor",
+        "label": "CTA Color",
+        "default_value": "rgba(204, 0, 51, 1)",
+        "field_type": "color",
+        "options": {
+          "mode": "rgba"
+        }
+      },
+      {
+        "name": "fontcolor",
+        "label": "Font Color",
+        "default_value": "rgba(255, 255, 255, 1)",
+        "field_type": "color",
+        "options": {
+          "mode": "rgba"
+        }
+      },
+      {
+        "name": "direction",
+        "label": "Slide Direction",
+        "default_value": "right",
+        "field_type": "dropdown",
+        "options": {
+          "choices": [
+            {
+              "value": "right",
+              "label": "Appear Right"
+            },
+            {
+              "value": "left",
+              "label": "Appear Left"
+            }
+          ]
+        }
+      },
+      {
+        "name": "tb",
+        "label": "Distance from Top or Bottom of page",
+        "default_value": "top",
+        "field_type": "dropdown",
+        "options": {
+          "choices": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      },
+      {
+        "name": "percent",
+        "label": "Percentage from Top or Bottom",
+        "default_value": 30,
+        "field_type": "number",
+        "options": null
+      },
+      {
+        "name": "videourl",
+        "label": "Video",
+        "default_value": "https://static.velkybrands.com/v/Ultra-Light-meets-Ultra-Strong_d.mp4",
+        "field_type": "text",
+        "options": null
+      },
+      {
+        "name": "posterurl",
+        "label": "Poster",
+        "default_value": "https://credittest.optimdemos.com/globalassets/_demo/insights/credit/credit-1.1280853.jpg?format=webp",
+        "field_type": "text",
+        "options": null
+      }
+    ],
+    "description": "Sliding Card Reminder",
+    "options": {
+      "html": "<div id=\"optimizely-widget-{{ widget.$instance }}\" class=\"sliding_div_{{extension.direction}}\" style=\"{{extension.tb}}:{{extension.percent}}%\">\n  <span class=\"optly-close\"><a href='#'>x</a></span>\n  <div class=\"optly-content typo--canary\">\n        <h1>{{widget.heading}}</h1>\n    \t\t<video title=\"Product Video\" height=\"auto\" width=\"100%\" autoplay=\"\" loop=\"\" playsinline=\"\" poster=\"{{widget.posterurl}}\"><source src=\"{{widget.videourl}}\" type=\"video/mp4\"></video>\n        <p>{{widget.text}}</p>\n        <a href=\"{{widget.url}}\" class=\"optly-cta\" style=\"background-color:{{extension.bgcolor}};color:{{extension.fontcolor}}\">{{widget.cta}}</a>\n  </div>\n</div>",
+      "css": ".sliding_div_right{\n    position: fixed;\n  \tright:-15%;\n    width: 15%;\n  \tmin-width: 300px;\n    background: white;\n  \tborder: 1px solid lightgrey;\n    -webkit-animation: slide 0.5s forwards;\n    -moz-animation: slide 0.5s forwards;\n    animation: slide 0.5s forwards;\n  \tz-index:99999999999;\n}\n\n.sliding_div_left{\n    position: fixed;\n  \tleft:-15%;\n    width: 15%;\n  \tmin-width: 300px;\n    background: white;\n  \tborder: 1px solid lightgrey;\n    -webkit-animation: slideLeft 0.5s forwards;\n    -moz-animation: slideLeft 0.5s forwards;\n    animation: slideLeft 0.5s forwards;\n  \tz-index:99999999999;\n}\n\n.optly-content {\n  margin: auto;\n  padding: 5%;\n}\n\n.optly-content > h1 {\n\ttext-align: center;\n  margin-bottom: 3.5%;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.optly-content p {\n  font-size: 14px;\n  margin-bottom: 10%;\n}\n\n.optly-cta {\n  font-size: 14px;\n  border: none;\n  cursor: pointer;\n  display: block;\n  font-weight: 600;\n  line-height: 17px;\n  padding: 20px 5px;\n  text-align: center;\n  text-transform: uppercase;\n  text-decoration: none;\n  letter-spacing: 2px;\n  border-radius: 3px;\n  transition: background-color .2s;\n}\n\n.optly-close {\n  color: #aaa;\n  float: right;\n  font-family: Helvetica,Arial,sans-serif;\n  font-size: 14px;\n  font-weight: bold;\n  margin-top: 3%;\n  margin-right: 3%;\n  text-decoration: none;\n}\n\n@-webkit-keyframes slide {\n    100% { right: 0; }\n}\n\n@keyframes slide {\n    100% { right: 0; }\n}\n\n@-webkit-keyframes slideLeft {\n    100% { left: 0; }\n}\n\n@keyframes slideLeft {\n    100% { left: 0; }\n}\n",
+      "apply_js": "var utils = window.optimizely.get('utils');\n\nutils.waitForElement('body').then(function(element){\n  var html = widget.$html;\n\telement.insertAdjacentHTML('afterbegin', html);\n  if (document.cookie.indexOf(\"slidingBag\") > -1 === false) {\n\t  document.querySelector(\".sliding_div_\" +extension.direction).style.display = \"block\";\n    \n    document.querySelector(\".optly-close\").addEventListener('click', function(e){\n      e.preventDefault();\n      document.querySelector('#optimizely-widget-' + widget.$instance).remove();\n      window['optimizely'] = window['optimizely'] || [];\n      window['optimizely'].push({\n        type: \"event\",\n        eventName: \"close_card\"\n      });\n    });\n  }\n\t\n});",
+      "undo_js": "var extensionHTML = document.querySelector('#optimizely-widget-' + widget.$instance);\nif(extensionHTML) extensionHTML.remove();"
+    }
+  }
